@@ -146,4 +146,6 @@ func main() {
 
 	// Display the main menu
 	DisplayMenu(&management)
+
+	fmt.Println("Hello world")
 }
