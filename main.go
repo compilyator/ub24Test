@@ -8,6 +8,9 @@ func main() {
 		Students: make(map[string]StudentInfo),
 	}
 
+	// Load student data from file at the beginning
+	management.LoadFromFile()
+
 	// Command-line interface to interact with the system
 	for {
 		fmt.Println("\n--- Student Management ---")
