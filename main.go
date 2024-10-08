@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/eiannone/keyboard"
+)
 
 func main() {
 	// Initialize student management system
@@ -92,5 +96,8 @@ func main() {
 		default:
 			fmt.Println("Invalid choice, please select a valid option.")
 		}
+
+		fmt.Println("Press any key to continue")
+		keyboard.GetKey()
 	}
 }
