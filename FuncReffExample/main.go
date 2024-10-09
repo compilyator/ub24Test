@@ -31,18 +31,20 @@ func main() {
 	fmt.Print("Choose action (1 - add, 2 - subtract, 3 - multiply, 4 - divide)")
 	fmt.Scan(&action)
 
-	var result float64
+	var fn func(float64, float64) float64
 
 	switch action {
 	case 1:
-		result = add(a, b)
+		fn = add
 	case 2:
-		result = subtract(a, b)
+		fn = subtract
 	case 3:
-		result = multiply(a, b)
+		fn = multiply
 	case 4:
-		result = devide(a, b)
+		fn = devide
 	}
+
+	result := fn(a, b)
 
 	fmt.Println("result = ", result)
 }
