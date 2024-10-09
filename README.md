@@ -1,2 +1,2 @@
 # ub24Test
-Git lessons for UB-24
+Git repository example for UB-24
