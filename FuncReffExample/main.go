@@ -2,22 +2,6 @@ package main
 
 import "fmt"
 
-func add(a float64, b float64) float64 {
-	return a + b
-}
-
-func subtract(a float64, b float64) float64 {
-	return a - b
-}
-
-func multiply(a float64, b float64) float64 {
-	return a * b
-}
-
-func devide(a float64, b float64) float64 {
-	return a / b
-}
-
 func main() {
 	var a, b float64
 
@@ -32,10 +16,10 @@ func main() {
 	fmt.Scan(&action)
 
 	functions := map[int](func(float64, float64) float64){
-		1: add,
-		2: subtract,
-		3: multiply,
-		4: devide,
+		1: func(f1, f2 float64) float64 { return f1 + f2 },
+		2: func(f1, f2 float64) float64 { return f1 - f2 },
+		3: func(f1, f2 float64) float64 { return f1 * f2 },
+		4: func(f1, f2 float64) float64 { return f1 / f2 },
 	}
 
 	result := functions[action](a, b)
