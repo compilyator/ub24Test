@@ -2,6 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
+
+	"github.com/dixonwille/wlog/v3"
+	"github.com/dixonwille/wmenu/v5"
 )
 
 const (
@@ -18,37 +22,46 @@ func fahrenheitToCelsius(fahrenheit float64) float64 {
 	return (fahrenheit - offset) * fahrenheitToCelsiusFactor
 }
 
+func enterTempreture() float64 {
+	var inputTemp float64
+	fmt.Print("Enter the temperature to convert: ")
+	fmt.Scanln(&inputTemp)
+	return inputTemp
+}
+
 func main() {
-	for {
-		fmt.Println("Temperature Converter")
-		fmt.Println("1. Celsius to Fahrenheit")
-		fmt.Println("2. Fahrenheit to Celsius")
-		fmt.Println("3. Exit")
-		fmt.Print("Choose an option (1-3): ")
+	shouldExit := false
+	for !shouldExit {
+		menu := wmenu.NewMenu("Choose menu item")
 
-		var option int
-		fmt.Scanln(&option)
+		menu.AddColor(wlog.Green, wlog.Yellow, wlog.Blue, wlog.Red)
+		menu.ClearOnMenuRun()
+		menu.LoopOnInvalid()
 
-		if option == 3 {
-			fmt.Println("Exiting the program.")
-			break
+		menu.Option("Celsius to Fahrenheit", 1, false, nil)
+		menu.Option("Fahrenheit to Celsius", 2, false, nil)
+		menu.Option("Exit", 3, true, nil)
+
+		menu.Action(func(opts []wmenu.Opt) error {
+			value := opts[0].Value.(int)
+			switch value {
+			case 1:
+				inputTemp := enterTempreture()
+				convertedTemp := celsiusToFahrenheit(inputTemp)
+				fmt.Printf("%.2f °C = %.2f °F\n", inputTemp, convertedTemp)
+			case 2:
+				inputTemp := enterTempreture()
+				convertedTemp := fahrenheitToCelsius(inputTemp)
+				fmt.Printf("%.2f °F = %.2f °C\n", inputTemp, convertedTemp)
+			case 3:
+				shouldExit = true
+			}
+			fmt.Scan()
+			return nil
+		})
+		err := menu.Run()
+		if err != nil {
+			log.Fatal(err)
 		}
-
-		var inputTemp float64
-		fmt.Print("Enter the temperature to convert: ")
-		fmt.Scanln(&inputTemp)
-
-		switch option {
-		case 1:
-			convertedTemp := celsiusToFahrenheit(inputTemp)
-			fmt.Printf("%.2f °C = %.2f °F\n", inputTemp, convertedTemp)
-		case 2:
-			convertedTemp := fahrenheitToCelsius(inputTemp)
-			fmt.Printf("%.2f °F = %.2f °C\n", inputTemp, convertedTemp)
-		default:
-			fmt.Println("Invalid option. Please choose 1, 2, or 3.")
-		}
-
-		fmt.Println()
 	}
 }
