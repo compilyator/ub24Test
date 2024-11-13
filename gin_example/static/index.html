@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test Page</title>
+</head>
+<body>
+    <h1>API Test Page</h1>
+    <div>
+        <h2>GET /api/echo</h2>
+        <input type="text" id="getMessage" placeholder="Enter message">
+        <button onclick="testGet()">Send GET Request</button>
+        <p id="getResponse"></p>
+    </div>
+    <div>
+        <h2>GET /api/echo/:id</h2>
+        <input type="number" id="getId" placeholder="Enter ID">
+        <input type="text" id="getIdMessage" placeholder="Enter message">
+        <button onclick="testGetWithId()">Send GET Request with ID</button>
+        <p id="getIdResponse"></p>
+    </div>
+    <div>
+        <h2>POST /api/echo</h2>
+        <input type="text" id="postMessage" placeholder="Enter message">
+        <button onclick="testPost()">Send POST Request</button>
+        <p id="postResponse"></p>
+    </div>
+    <script>
+        function testGet() {
+            const message = document.getElementById('getMessage').value;
+            fetch(`/api/echo?message=${encodeURIComponent(message)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('getResponse').innerText = JSON.stringify(data);
+                });
+        }
+
+        function testGetWithId() {
+            const id = document.getElementById('getId').value;
+            const message = document.getElementById('getIdMessage').value;
+            fetch(`/api/echo/${id}?message=${encodeURIComponent(message)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('getIdResponse').innerText = JSON.stringify(data);
+                });
+        }
+
+        function testPost() {
+            const message = document.getElementById('postMessage').value;
+            fetch(`/api/echo`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('postResponse').innerText = JSON.stringify(data);
+                });
+        }
+    </script>
+</body>
+</html>
