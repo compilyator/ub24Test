@@ -4,28 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Test Page</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>API Test Page</h1>
-    <div>
-        <h2>GET /api/echo</h2>
-        <input type="text" id="getMessage" placeholder="Enter message">
-        <button onclick="testGet()">Send GET Request</button>
-        <p id="getResponse"></p>
+<body class="container">
+    <h1 class="center-align">API Test Page</h1>
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">GET /api/echo</span>
+                    <div class="input-field">
+                        <input type="text" id="getMessage" placeholder="Enter message">
+                    </div>
+                    <button class="btn waves-effect waves-light" onclick="testGet()">Send GET Request</button>
+                    <p id="getResponse"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">GET /api/echo/:id</span>
+                    <div class="input-field">
+                        <input type="number" id="getId" placeholder="Enter ID">
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="getIdMessage" placeholder="Enter message">
+                    </div>
+                    <button class="btn waves-effect waves-light" onclick="testGetWithId()">Send GET Request with ID</button>
+                    <p id="getIdResponse"></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <h2>GET /api/echo/:id</h2>
-        <input type="number" id="getId" placeholder="Enter ID">
-        <input type="text" id="getIdMessage" placeholder="Enter message">
-        <button onclick="testGetWithId()">Send GET Request with ID</button>
-        <p id="getIdResponse"></p>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">POST /api/echo</span>
+                    <div class="input-field">
+                        <input type="text" id="postMessage" placeholder="Enter message">
+                    </div>
+                    <button class="btn waves-effect waves-light" onclick="testPost()">Send POST Request</button>
+                    <p id="postResponse"></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <h2>POST /api/echo</h2>
-        <input type="text" id="postMessage" placeholder="Enter message">
-        <button onclick="testPost()">Send POST Request</button>
-        <p id="postResponse"></p>
-    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         function testGet() {
             const message = document.getElementById('getMessage').value;
